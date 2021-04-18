@@ -6,7 +6,8 @@
             <nav th:replace="fragments/navbar.html :: navbar( active = 'Product')"></nav>
             <div class="row mb-4">
                 <div class="col-md-6 offset-md-3">
-                    <h2>Editar Producto</h2>
+                    <h2 th:text="${product.id == 0? 'Nuevo Producto' : 'Editar Producto'}"></h2>
+                    <h2></h2>
                     <hr/>
                     <form method="post" th:action="@{'/product/save'}" th:object="${product}">
                         <input th:field="*{id}" type="hidden"/>
@@ -15,16 +16,16 @@
                             <input th:field="*{productname}" type="text" class="form-control"/>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Proveedor</label>
-                            <select class="form-select" name="supplier">
+                            <label class="form-label" for="supplier">Proveedor</label>
+                            <select class="form-select" name="supplier" id="supplier">
                                 <option th:each="supplier : ${listaProveedores}" th:value="${supplier.id}"
                                         th:text="${supplier.companyname}"
                                         th:selected="${supplier.id == product.supplier.id}"></option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Categoría</label>
-                            <select class="form-select" name="category">
+                            <label class="form-label" for="category">Categoría</label>
+                            <select class="form-select" name="category" id="category">
                                 <option th:each="categoria : ${listaCategorias}" th:value="${categoria.id}"
                                         th:text="${categoria.categoryname}"
                                         th:selected="${categoria.id == product.category.id}"></option>
