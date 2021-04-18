@@ -1,6 +1,7 @@
 package com.example.clase5demo.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -11,8 +12,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="productid")
     private int id;
+
     @Column(nullable = false)
+    @NotBlank
+    @Size(max=40,message = "El nombre no puede tener más de 40 caracteres")
     private String productname;
+
     @ManyToOne
     @JoinColumn(name = "supplierid")
     private Supplier supplier;
@@ -20,9 +25,21 @@ public class Product {
     @JoinColumn(name = "categoryid")
     private Category category;
     private String quantityperunit;
+
+    @Positive
+    @Digits(integer = 10,fraction = 4)
     private BigDecimal unitprice;
+
+    @Digits(integer = 10,fraction = 0)
+    @Max(value = 32767)
+    @Min(value = 0)
     private int unitsinstock;
+
+    @Digits(integer = 10, fraction = 0)
+    @Max(value = 32767)
+    @Min(value = 0)
     private int unitsonorder;
+
     private int reorderlevel;
     @Column(nullable = false)
     private boolean discontinued;

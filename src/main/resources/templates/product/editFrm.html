@@ -14,21 +14,21 @@
                         <div class="mb-3">
                             <label class="form-label">Nombre del Producto</label>
                             <input th:field="*{productname}" type="text" class="form-control"/>
+                            <div class="text-danger" th:if="${#fields.hasErrors('productname')}"
+                                 th:errors="*{productname}"></div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="supplier">Proveedor</label>
-                            <select class="form-select" name="supplier" id="supplier">
-                                <option th:each="supplier : ${listaProveedores}" th:value="${supplier.id}"
-                                        th:text="${supplier.companyname}"
-                                        th:selected="${supplier.id == product.supplier.id}"></option>
+                            <label class="form-label">Proveedor</label>
+                            <select class="form-select" th:field="*{supplier}">
+                                <option th:each="supplier : ${listaProveedores}"
+                                        th:value="${supplier.id}" th:text="${supplier.companyname}"></option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="category">Categoría</label>
-                            <select class="form-select" name="category" id="category">
+                            <label class="form-label">Categoría</label>
+                            <select class="form-select" th:field="*{category}">
                                 <option th:each="categoria : ${listaCategorias}" th:value="${categoria.id}"
-                                        th:text="${categoria.categoryname}"
-                                        th:selected="${categoria.id == product.category.id}"></option>
+                                        th:text="${categoria.categoryname}"></option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -38,14 +38,20 @@
                         <div class="mb-3">
                             <label class="form-label">Precio unitario</label>
                             <input th:field="*{unitprice}" type="text" class="form-control"/>
+                            <div class="text-danger" th:if="${#fields.hasErrors('unitprice')}"
+                                 th:errors="*{unitprice}"></div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Unidades en stock</label>
                             <input th:field="*{unitsinstock}" type="number" class="form-control"/>
+                            <div class="text-danger" th:if="${#fields.hasErrors('unitsinstock')}"
+                                 th:errors="*{unitsinstock}"></div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Unidades ordenadas</label>
                             <input th:field="*{unitsonorder}" type="number" class="form-control"/>
+                            <div class="text-danger" th:if="${#fields.hasErrors('unitsonorder')}"
+                                 th:errors="*{unitsonorder}"></div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Nivel de reorden</label>
@@ -57,7 +63,7 @@
                             <label class="form-check-label">¿Descontinuado?</label>
                         </div>
                         <a th:href="@{'/product'}" class="btn btn-danger">Cancelar</a>
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <button type="submit" class="btn btn-primary" th:text="${product.id == 0? 'Registrar' : 'Actualizar'}">Reg/act</button>
                     </form>
                 </div>
             </div>

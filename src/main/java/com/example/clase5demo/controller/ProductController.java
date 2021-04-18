@@ -3,6 +3,7 @@ package com.example.clase5demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.clase5demo.entity.Product;
@@ -10,6 +11,7 @@ import com.example.clase5demo.repository.CategoryRepository;
 import com.example.clase5demo.repository.ProductRepository;
 import com.example.clase5demo.repository.SupplierRepository;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -38,14 +40,23 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String guardarProducto(@ModelAttribute("product") Product product, RedirectAttributes attr) {
-        if (product.getId() == 0) {
-            attr.addFlashAttribute("msg", "Producto creado exitosamente");
-        } else {
-            attr.addFlashAttribute("msg", "Producto actualizado exitosamente");
+    public String guardarProducto(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult,
+                                  RedirectAttributes attr, Model model) {
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("listaCategorias", categoryRepository.findAll());
+            model.addAttribute("listaProveedores", supplierRepository.findAll());
+            return "product/editFrm";
+        }else {
+
+            if (product.getId() == 0) {
+                attr.addFlashAttribute("msg", "Producto creado exitosamente");
+            } else {
+                attr.addFlashAttribute("msg", "Producto actualizado exitosamente");
+            }
+            productRepository.save(product);
+            return "redirect:/product";
         }
-        productRepository.save(product);
-        return "redirect:/product";
     }
 
     @GetMapping("/edit")
