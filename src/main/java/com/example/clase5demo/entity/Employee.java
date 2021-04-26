@@ -13,28 +13,46 @@ public class Employee {
     @Column(name = "employeeid")
     private int id;
     @Column(nullable = false)
+    @NotBlank
+    @Size(max=20, min=0, message="No puede tener mas de 20 caracteres")
     private String lastname;
+    @NotBlank
+    @Size(max=10, min=0, message="No puede tener mas de 10 caracteres")
     @Column(nullable = false)
     private String firstname;
+    @NotBlank
+    @Size(max=30, min=0, message="No puede tener mas de 30 caracteres")
     private String title;
+    @Size(max=25, min=0, message="No puede tener mas de 25 caracteres")
     private String titleofcourtesy;
     private Date birthdate;
     private Date hiredate;
+    @Size(max=60, min=0, message="No puede tener mas de 60 caracteres")
     private String address;
+    @Size(max=15, min=0, message="No puede tener mas de 15 caracteres")
     private String city;
+    @Size(max=15, min=0, message="No puede tener mas de 15 caracteres")
     private String region;
+    @Size(max=10, min=0, message="No puede tener mas de 10 caracteres")
     private String postalcode;
+    @Size(max=15, min=0, message="No puede tener mas de 15 caracteres")
     private String country;
+    @Size(max=24, min=0, message="No puede tener mas de 24 caracteres")
     private String homephone;
+    @Size(max=4, min=0, message="No puede tener mas de 4 caracteres")
     private String extension;
     @Lob
     private byte[] photo;
     @Column(nullable = false)
+    @NotBlank
     private String notes;
     @OneToOne
     @JoinColumn(name = "reportsto")
     private Employee manager;
+    @Size(max=255, min=0, message="No puede tener mas de 255 caracteres")
     private String photopath;
+    @DecimalMin(value=0.0, inclusive=false, message="Valor minimo>0.0")
+    @DecimalMax(value=150000.0, message="Valor maximo<150000.0")
     private float salary;
 
     public int getId() {
