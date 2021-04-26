@@ -1,6 +1,8 @@
 package com.example.clase5demo.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "shippers")
@@ -11,7 +13,10 @@ public class Shipper {
     @Column(name = "shipperid")
     private int shipperId;
     @Column(name = "companyname", nullable = false)
+    @Size(min=0,max=40,message = "El nombre de la compañia debe tener menos de 40 caracteres")
     private String companyName;
+
+    @Size(min=0,max=24,message = "El numero de telefono debe tener menos de 24 caracteres")
     private String phone;
 
     public int getShipperId() {
