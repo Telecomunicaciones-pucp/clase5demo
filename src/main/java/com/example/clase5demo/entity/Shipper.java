@@ -1,6 +1,7 @@
 package com.example.clase5demo.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "shippers")
@@ -10,6 +11,8 @@ public class Shipper {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shipperid")
     private int shipperId;
+
+    @NotNull
     @Column(name = "companyname", nullable = false)
     private String companyName;
     private String phone;
