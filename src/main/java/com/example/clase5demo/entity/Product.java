@@ -14,13 +14,14 @@ public class Product {
     private int id;
 
     @Column(nullable = false)
-    @NotBlank
+    @NotBlank(message = "No puede ser vacío")
     @Size(max=40,message = "El nombre no puede tener más de 40 caracteres")
     private String productname;
 
     @ManyToOne
     @JoinColumn(name = "supplierid")
     private Supplier supplier;
+
     @ManyToOne
     @JoinColumn(name = "categoryid")
     private Category category;
@@ -31,7 +32,7 @@ public class Product {
     private BigDecimal unitprice;
 
     @Digits(integer = 10,fraction = 0)
-    @Max(value = 32767)
+    @Max(value = 32767,message = "El valor máximo es de 32767")
     @Min(value = 0)
     private int unitsinstock;
 
@@ -41,6 +42,7 @@ public class Product {
     private int unitsonorder;
 
     private int reorderlevel;
+
     @Column(nullable = false)
     private boolean discontinued;
 

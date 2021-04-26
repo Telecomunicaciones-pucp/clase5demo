@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.clase5demo.entity.Product;
@@ -12,6 +13,8 @@ import com.example.clase5demo.repository.ProductRepository;
 import com.example.clase5demo.repository.SupplierRepository;
 
 import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Controller
@@ -43,11 +46,11 @@ public class ProductController {
     public String guardarProducto(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult,
                                   RedirectAttributes attr, Model model) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             model.addAttribute("listaCategorias", categoryRepository.findAll());
             model.addAttribute("listaProveedores", supplierRepository.findAll());
             return "product/editFrm";
-        }else {
+        } else {
 
             if (product.getId() == 0) {
                 attr.addFlashAttribute("msg", "Producto creado exitosamente");
@@ -90,5 +93,37 @@ public class ProductController {
         return "redirect:/product";
 
     }
+/*
+    @InitBinder("product")
+    public void validador(WebDataBinder binder) {
 
+        PropertyEditorSupport validacionEntero = new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                try {
+                    int entero = Integer.parseInt(text);
+                    this.setValue(entero > 10 && entero < 51 ? entero : 10);
+                } catch (NumberFormatException e) {
+                    this.setValue(0);
+                }
+            }
+        };
+
+        PropertyEditorSupport validacionBigDecimal = new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                try {
+                    this.setValue(new BigDecimal(text));
+                } catch (NumberFormatException e) {
+                    this.setValue(0);
+                }
+            }
+        };
+
+        binder.registerCustomEditor(Integer.class, "unitsinstock", validacionEntero);
+        binder.registerCustomEditor(Integer.class, "unitsonorder", validacionEntero);
+        binder.registerCustomEditor(BigDecimal.class, "unitprice", validacionBigDecimal);
+
+    }
+*/
 }
