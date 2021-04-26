@@ -17,18 +17,16 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="supplier">Proveedor</label>
-                            <select class="form-select" name="supplier" id="supplier">
+                            <select class="form-select" th:field="*{supplier}">
                                 <option th:each="supplier : ${listaProveedores}" th:value="${supplier.id}"
-                                        th:text="${supplier.companyname}"
-                                        th:selected="${supplier.id == product.supplier.id}"></option>
+                                        th:text="${supplier.companyname}"></option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="category">Categoría</label>
-                            <select class="form-select" name="category" id="category">
+                            <select class="form-select" th:field="*{category}">
                                 <option th:each="categoria : ${listaCategorias}" th:value="${categoria.id}"
-                                        th:text="${categoria.categoryname}"
-                                        th:selected="${categoria.id == product.category.id}"></option>
+                                        th:text="${categoria.categoryname}"></option>
                             </select>
                         </div>
                         <div class="mb-3">
