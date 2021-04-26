@@ -35,13 +35,14 @@ public class ShipperController {
     }
 
     @PostMapping("/save")
-    public String guardarNuevoTransportista(@ModelAttribute("shipper") Shipper shipper,
-                                            Model model, RedirectAttributes attr) {
+    public String guardarNuevoTransportista(@ModelAttribute("shipper") @Valid Shipper shipper,
+                                            BindingResult bindingResult, Model model,
+                                            RedirectAttributes attr) {
 
-        if (shipper.getCompanyname().equals("")) {
+        if(bindingResult.hasErrors()){
             model.addAttribute("errorCompany", "El nombre no puede ser vacío");
             return "shipper/newFrm";
-        } else {
+        }else {
             if (shipper.getShipperId() == 0) {
                 attr.addFlashAttribute("msg", "Usuario creado exitosamente");
             } else {
