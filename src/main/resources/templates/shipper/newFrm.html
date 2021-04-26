@@ -20,7 +20,7 @@
                             <input type="text" class="form-control" th:field="*{phone}" />
                         </div>
                         <a th:href="@{'/shipper/list'}" class="btn btn-danger">Cancelar</a>
-                        <button type="submit" class="btn btn-primary">Registrar</button>
+                        <button type="submit" class="btn btn-primary" th:text="${shipper.shipperId != 0 ? 'Actualizar' : 'Guardar'}">Registrar</button>
                     </form>
                 </div>
             </div>
