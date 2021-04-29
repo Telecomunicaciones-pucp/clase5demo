@@ -39,6 +39,15 @@ public class EmployeeController {
         model.addAttribute("listaEmpleadosPorPais", employeeRepository.obtenerEmpleadosPorPais());
         return "employee/list"
     }
+    
+    @GetMapping("/rutaPrueba2")
+    public String rutaPrueba2(Model model) {
+        //ruta de prueba
+        model.addAttribute("listaEmpleados", employeeRepository.findAll());
+        model.addAttribute("listaEmpleadosPorRegion", employeeRepository.obtenerEmpleadosPorRegion());
+        model.addAttribute("listaEmpleadosPorPais", employeeRepository.obtenerEmpleadosPorPais());
+        return "employee/list"
+    }
 
     @GetMapping("/new")
     public String nuevoEmpleadoFrm(Model model) {
